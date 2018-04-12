@@ -23,6 +23,9 @@
 #define TA_WRITE_PNG_EWRITS     0x212u
 #define TA_WRITE_PNG_EINFOS     0x213u
 
+#define TA_GENERATOR_DELETE_OFREEROOT           0x01u
+#define TA_GENERATOR_DELETE_OISROOT             0x02u
+
 #ifndef __TA_GENERATE_H_
 #define __TA_GENERATE_H_
 
@@ -40,39 +43,54 @@ struct tag_generator_node {
         struct tag_canvas *img;
 };
 
-uint32_t tag_canvas__new(struct tag_canvas *c, uint32_t w, uint32_t h,
-                        uint32_t bpp);
+uint32_t tag_canvas__new(struct tag_canvas *c,
+                         uint32_t w,
+                         uint32_t h,
+                         uint32_t bpp);
 
+uint32_t tag_canvas__delete(struct tag_canvas *c);
 
 uint32_t tag_canvas__print(struct tag_canvas *c);
 
-uint32_t tag_canvas__read_idx(struct tag_canvas *c, uint32_t *idx,
-                            uint32_t x, uint32_t y);
+uint32_t tag_canvas__read_idx(struct tag_canvas *c,
+                              uint32_t *idx,
+                              uint32_t x,
+                              uint32_t y);
 
-uint32_t tag_canvas__writepx(struct tag_canvas *c, uint32_t x, uint32_t y,
-                            uint32_t val);
+uint32_t tag_canvas__writepx(struct tag_canvas *c,
+                             uint32_t x,
+                             uint32_t y,
+                             uint32_t val);
 
-uint32_t tag_canvas__readpx(struct tag_canvas *c, uint32_t *val,
-                          uint32_t x, uint32_t y);
+uint32_t tag_canvas__readpx(struct tag_canvas *c,
+                            uint32_t *val,
+                            uint32_t x,
+                            uint32_t y);
 
 uint32_t tag_canvas__write_canvas(struct tag_canvas *c,
-                                struct tag_canvas *add, uint32_t x,
-                                uint32_t y);
+                                  struct tag_canvas *add,
+                                  uint32_t x,
+                                  uint32_t y);
 
 uint32_t tag_canvas__load_png(struct tag_canvas *c, const char *file);
 
+uint32_t tag_canvas__write_png(struct tag_canvas *c, const char *file);
+
 uint32_t tag_generator_node__new(struct tag_generator_node *g,
-                                uint32_t x, uint32_t y,
-                                uint32_t w, uint32_t h);
+                                 uint32_t x, uint32_t y,
+                                 uint32_t w, uint32_t h);
+
+uint32_t tag_generator_node__delete(struct tag_generator_node *g,
+                                    uint32_t free_self);
 
 uint32_t tag_generator_node__print(struct tag_generator_node *g,
-                                  uint32_t indent);
+                                   uint32_t indent);
 
 uint32_t tag_generator_node__insert_canvas(struct tag_generator_node *g,
-                                     struct tag_canvas *c,
-                                     uint32_t *x, uint32_t *y);
+                                           struct tag_canvas *c,
+                                           uint32_t *x, uint32_t *y);
 
 uint32_t tag_generator_node__to_canvas(struct tag_generator_node *g,
-                                      struct tag_canvas *c);
+                                       struct tag_canvas *c);
 
 #endif

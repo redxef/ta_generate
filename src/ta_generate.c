@@ -51,6 +51,11 @@ uint32_t tag_canvas__new(struct tag_canvas *c, uint32_t w, uint32_t h,
         return 0;
 }
 
+uint32_t tag_canvas__delete(struct tag_canvas *c) {
+        free(c->imgdata);
+        return 0;
+}
+
 uint32_t tag_canvas__print(struct tag_canvas *c) {
 
         uint32_t i;
@@ -265,6 +270,21 @@ uint32_t tag_generator_node__new(struct tag_generator_node *g,
         g->w = w;
         g->h = h;
         g->img = NULL;
+        return 0;
+}
+
+uint32_t tag_generator_node__delete(
+                struct tag_generator_node *g, uint32_t free_self) {
+        if (g->img != NULL) {
+                tag_canvas__delete(g->img);
+                free(g->img);
+        }
+        if (g->child[0] != NULL)
+                tag_generator_node__delete(g->child[0], 1);
+        if (g->child[0] != NULL)
+                tag_generator_node__delete(g->child[1], 1);
+        if (free_self)
+                free(g);
         return 0;
 }
 
