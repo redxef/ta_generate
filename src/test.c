@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
                 if (val == 7)
                         val = 0;
                 tag_generator_node__to_canvas(&g, &c[3]);
-                tag_canvas__write_png(&c[3], "/Users/redxef/Desktop/atest.png");
+                tag_canvas__write_png(&c[3], "test.png");
                 sleep(4);
         }
 

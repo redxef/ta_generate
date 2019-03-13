@@ -278,11 +278,14 @@ uint32_t tag_generator_node__delete(
         if (g->img != NULL) {
                 tag_canvas__delete(g->img);
                 free(g->img);
+                g->img = NULL;
         }
         if (g->child[0] != NULL)
                 tag_generator_node__delete(g->child[0], 1);
+                g->child[0] = NULL;
         if (g->child[0] != NULL)
                 tag_generator_node__delete(g->child[1], 1);
+                g->child[1] = NULL;
         if (free_self)
                 free(g);
         return 0;
